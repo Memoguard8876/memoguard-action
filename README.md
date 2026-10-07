@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/logo.svg" alt="MemoGuard logo" width="112"></p>
+
 # memoguard-action
 
 GitHub Action packaging for MemoGuard. It installs a pinned `memoguard-cli` release and converts its safe findings into CI annotations.
