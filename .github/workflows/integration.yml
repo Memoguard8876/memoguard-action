@@ -1,0 +1,26 @@
+name: Action integration
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  blocked-fixture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan a clean public-data fixture
+        uses: ./
+        with:
+          path: fixtures/clean.json
+          kind: json
+          cli-token: ${{ secrets.CLI_READ_TOKEN }}
+      - name: Scan a blocked public-data fixture
+        id: scan
+        continue-on-error: true
+        uses: ./
+        with:
+          path: fixtures/blocked.json
+          kind: json
+          cli-token: ${{ secrets.CLI_READ_TOKEN }}
+      - name: Verify blocking result
+        if: always()
+        run: test '${{ steps.scan.outcome }}' = 'failure'

@@ -1,0 +1,36 @@
+name: MemoGuard
+description: Scan Stellar transaction data for accidental public disclosure
+inputs:
+  path:
+    description: Path to a transaction XDR, simulation JSON, or decoded public JSON file
+    required: true
+  kind:
+    description: xdr, simulation, or json
+    required: false
+    default: xdr
+  policy:
+    description: Optional JSON policy path
+    required: false
+    default: ''
+  cli-version:
+    description: Pinned MemoGuard CLI release tag
+    required: false
+    default: v0.1.2
+  cli-token:
+    description: Token with read access to the private memoguard-cli release
+    required: true
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-go@v5
+      with:
+        go-version-file: ${{ github.action_path }}/go.mod
+    - name: Scan transaction data
+      shell: bash
+      env:
+        INPUT_PATH: ${{ inputs.path }}
+        INPUT_KIND: ${{ inputs.kind }}
+        INPUT_POLICY: ${{ inputs.policy }}
+        CLI_VERSION: ${{ inputs.cli-version }}
+        GH_TOKEN: ${{ inputs.cli-token }}
+      run: bash "$GITHUB_ACTION_PATH/scripts/run.sh"
