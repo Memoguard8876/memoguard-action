@@ -6,7 +6,7 @@ if [[ "$(uname -s)" != "Linux" || "$(uname -m)" != "x86_64" ]]; then
   exit 2
 fi
 if [[ -z "${GH_TOKEN:-}" || -z "${INPUT_PATH:-}" ]]; then
-  echo '::error title=MemoGuard::A CLI read token and input path are required.'
+  echo '::error title=MemoGuard::A GitHub token and an input path are required.'
   exit 2
 fi
 

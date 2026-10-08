@@ -21,9 +21,8 @@ Scanning rules, Stellar parsing, or an independent detection engine.
   with:
     path: transaction.xdr
     kind: xdr
-    cli-token: ${{ secrets.MEMOGUARD_CLI_READ_TOKEN }}
 ```
 
-The action runs on Linux x86_64 GitHub-hosted runners. `kind` can be `xdr`, `simulation`, or `json`. It downloads the pinned private CLI release, verifies its SHA-256 checksum, scans the file, and emits safe GitHub annotations. A blocking finding fails the job. The caller must provide a token that can read the private `memoguard-cli` release. The default CLI version is `v0.1.2`; use `cli-version` to select another published tag.
+The action runs on Linux x86_64 GitHub-hosted runners. `kind` can be `xdr`, `simulation`, or `json`. It downloads the pinned CLI release, verifies its SHA-256 checksum, scans the file, and emits safe GitHub annotations. A blocking finding fails the job. No token is needed once `memoguard-cli` releases are public; set `cli-token` only if you mirror them privately. The default CLI version is `v0.1.2`; use `cli-version` to select another published tag.
 
 Product PRD and architecture live in the parent `memguard/docs` folder in the local workspace.

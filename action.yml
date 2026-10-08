@@ -17,8 +17,9 @@ inputs:
     required: false
     default: v0.1.2
   cli-token:
-    description: Token with read access to the private memoguard-cli release
-    required: true
+    description: Token used to download the memoguard-cli release; only needed if the release is not public
+    required: false
+    default: ${{ github.token }}
 runs:
   using: composite
   steps:

@@ -12,7 +12,7 @@ jobs:
         with:
           path: fixtures/clean.json
           kind: json
-          cli-token: ${{ secrets.CLI_READ_TOKEN }}
+          cli-token: ${{ secrets.CLI_READ_TOKEN || github.token }}
       - name: Scan a blocked public-data fixture
         id: scan
         continue-on-error: true
@@ -20,7 +20,7 @@ jobs:
         with:
           path: fixtures/blocked.json
           kind: json
-          cli-token: ${{ secrets.CLI_READ_TOKEN }}
+          cli-token: ${{ secrets.CLI_READ_TOKEN || github.token }}
       - name: Verify blocking result
         if: always()
         run: test '${{ steps.scan.outcome }}' = 'failure'
