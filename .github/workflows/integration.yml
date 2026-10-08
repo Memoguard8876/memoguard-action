@@ -4,7 +4,11 @@ permissions:
   contents: read
 jobs:
   blocked-fixture:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - name: Scan a clean public-data fixture
@@ -12,7 +16,6 @@ jobs:
         with:
           path: fixtures/clean.json
           kind: json
-          cli-token: ${{ secrets.CLI_READ_TOKEN || github.token }}
       - name: Scan a blocked public-data fixture
         id: scan
         continue-on-error: true
@@ -20,7 +23,20 @@ jobs:
         with:
           path: fixtures/blocked.json
           kind: json
-          cli-token: ${{ secrets.CLI_READ_TOKEN || github.token }}
+      - name: Scan a warning without failing
+        uses: ./
+        with:
+          path: fixtures/warning.json
+          kind: json
+      - name: Fail on a warning when configured
+        id: strict
+        continue-on-error: true
+        uses: ./
+        with:
+          path: fixtures/warning.json
+          kind: json
+          fail-on: warning
       - name: Verify blocking result
         if: always()
-        run: test '${{ steps.scan.outcome }}' = 'failure'
+        shell: bash
+        run: test '${{ steps.scan.outcome }}' = 'failure' && test '${{ steps.strict.outcome }}' = 'failure'

@@ -12,14 +12,10 @@ inputs:
     description: Optional JSON policy path
     required: false
     default: ''
-  cli-version:
-    description: Pinned MemoGuard CLI release tag
+  fail-on:
+    description: Finding severity that fails the job (block, warning, or none)
     required: false
-    default: v0.1.2
-  cli-token:
-    description: Token used to download the memoguard-cli release; only needed if the release is not public
-    required: false
-    default: ${{ github.token }}
+    default: block
 runs:
   using: composite
   steps:
@@ -32,6 +28,8 @@ runs:
         INPUT_PATH: ${{ inputs.path }}
         INPUT_KIND: ${{ inputs.kind }}
         INPUT_POLICY: ${{ inputs.policy }}
-        CLI_VERSION: ${{ inputs.cli-version }}
-        GH_TOKEN: ${{ inputs.cli-token }}
-      run: bash "$GITHUB_ACTION_PATH/scripts/run.sh"
+        FAIL_ON: ${{ inputs.fail-on }}
+      run: |
+        action_path="$GITHUB_ACTION_PATH"
+        if command -v cygpath >/dev/null 2>&1; then action_path="$(cygpath -u "$action_path")"; fi
+        bash "$action_path/scripts/run.sh"

@@ -17,12 +17,14 @@ Scanning rules, Stellar parsing, or an independent detection engine.
 ## Use in a workflow
 
 ```yaml
-- uses: Memoguard8876/memoguard-action@v0.1.0
+- uses: Memoguard8876/memoguard-action@v0.2.0
   with:
     path: transaction.xdr
     kind: xdr
 ```
 
-The action runs on Linux x86_64 GitHub-hosted runners. `kind` can be `xdr`, `simulation`, or `json`. It downloads the pinned CLI release, verifies its SHA-256 checksum, scans the file, and emits safe GitHub annotations. A blocking finding fails the job. No token is needed once `memoguard-cli` releases are public; set `cli-token` only if you mirror them privately. The default CLI version is `v0.1.2`; use `cli-version` to select another published tag.
+The action supports Linux x86_64 and arm64, macOS x86_64 and arm64, and Windows x86_64 runners. `kind` can be `xdr`, `simulation`, or `json`. It downloads the public CLI v0.2.0 release and compares the binary with SHA-256 digests pinned in this Action repository. No token input is required. A blocking finding fails the job by default; set `fail-on: warning` to fail on warnings too, or `fail-on: none` to report without failing. A new CLI version requires a new Action release with updated pinned digests.
 
 Product PRD and architecture live in the parent `memguard/docs` folder in the local workspace.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for changes, [SECURITY.md](SECURITY.md) for private vulnerability reports, and [LICENSE](LICENSE) for MIT terms.
