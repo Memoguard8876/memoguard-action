@@ -17,7 +17,7 @@ workdir="$(mktemp -d)"
 trap 'rm -rf -- "$workdir"' EXIT
 action_path="$GITHUB_ACTION_PATH"
 if command -v cygpath >/dev/null 2>&1; then action_path="$(cygpath -u "$action_path")"; fi
-CLI_VERSION=v0.2.0
+CLI_VERSION=v0.2.2
 release_url="https://github.com/Memoguard8876/memoguard-cli/releases/download/${CLI_VERSION}"
 curl --fail --location --retry 3 --silent --show-error "$release_url/$asset" --output "$workdir/$asset"
 expected="$(awk -v name="$asset" '$2 == name {print $1}' "$action_path/checksums.sha256")"
