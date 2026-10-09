@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.2 — 2026-10-09
+
+- Pin CLI v0.2.3 binaries, so `simulation` input accepts a full Stellar RPC reply and unrecognized input fails instead of passing clean.
+
 ## v0.2.1 — 2026-10-08
 
 - Pin CLI v0.2.2 binaries, including the fail-closed scanner behavior.

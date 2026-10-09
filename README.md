@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: Memoguard8876/memoguard-action@v0.2.1
+      - uses: Memoguard8876/memoguard-action@v0.2.2
         with:
           path: fixtures/transaction.xdr
           kind: xdr
@@ -99,7 +99,7 @@ A blocking finding is an `error` annotation. A warning is a `warning` annotation
 
 ## Pinning and upgrades
 
-Each Action release pins exactly one CLI version. **Action v0.2.1 pins CLI v0.2.2.** There is no input to pick another version, so the digest list and the binary always match. Pin the Action to a tag, or to a full commit SHA for the strictest setup.
+Each Action release pins exactly one CLI version. **Action v0.2.2 pins CLI v0.2.3.** There is no input to pick another version, so the digest list and the binary always match. Pin the Action to a tag, or to a full commit SHA for the strictest setup.
 
 ## Troubleshooting
 
@@ -135,9 +135,9 @@ memoguard-rules ──► memoguard-engine ──► memoguard-cli ──► mem
 | Repository | Role | Latest |
 | --- | --- | --- |
 | [memoguard-rules](https://github.com/Memoguard8876/memoguard-rules) | Policy schema, validation, built-in rules, expiring exceptions | v0.1.1 |
-| [memoguard-engine](https://github.com/Memoguard8876/memoguard-engine) | Stellar XDR decoding, field extraction, scanning, redacted findings | v0.2.1 |
-| [memoguard-cli](https://github.com/Memoguard8876/memoguard-cli) | `memoguard scan` command, output formats, exit codes, release binaries | v0.2.2 |
-| [memoguard-action](https://github.com/Memoguard8876/memoguard-action) | GitHub Action: pinned CLI, annotations, failure threshold | v0.2.1 |
+| [memoguard-engine](https://github.com/Memoguard8876/memoguard-engine) | Stellar XDR decoding, field extraction, scanning, redacted findings | v0.2.2 |
+| [memoguard-cli](https://github.com/Memoguard8876/memoguard-cli) | `memoguard scan` command, output formats, exit codes, release binaries | v0.2.3 |
+| [memoguard-action](https://github.com/Memoguard8876/memoguard-action) | GitHub Action: pinned CLI, annotations, failure threshold | v0.2.2 |
 
 Full guides, the field-path reference and walkthroughs are in **[MemoGuard Docs](https://cjay-1.gitbook.io/memoguard-docs/)**. Product requirements and architecture are versioned in [memoguard-cli/product/docs](https://github.com/Memoguard8876/memoguard-cli/tree/main/product/docs).
 

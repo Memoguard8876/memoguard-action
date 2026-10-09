@@ -36,7 +36,19 @@ jobs:
           path: fixtures/warning.json
           kind: json
           fail-on: warning
+      - name: Scan a full JSON-RPC simulation reply
+        uses: ./
+        with:
+          path: fixtures/simulation-rpc.json
+          kind: simulation
+      - name: Reject input that is not a simulation reply
+        id: not-simulation
+        continue-on-error: true
+        uses: ./
+        with:
+          path: fixtures/not-simulation.json
+          kind: simulation
       - name: Verify blocking result
         if: always()
         shell: bash
-        run: test '${{ steps.scan.outcome }}' = 'failure' && test '${{ steps.strict.outcome }}' = 'failure'
+        run: test '${{ steps.scan.outcome }}' = 'failure' && test '${{ steps.strict.outcome }}' = 'failure' && test '${{ steps.not-simulation.outcome }}' = 'failure'
